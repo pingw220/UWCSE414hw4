@@ -1,0 +1,53 @@
+a. R(A,B,C,D,E) with functional dependencies D → B, CE → A.
+
+- Check the functional Dependency of R(A, B, C, D, E).
+- Looking at D -> B, and find the closure of D: D+ = {D, B}, D+ != D and D+ != all the attributes in R, which violate BCNF rules, so we know that D is not a Superkey.
+- Decomposing R into R1 and R2, where D is the the attributes to connect R1 and R2.
+- Create R1 with D and B: R1 = {D, B}, which is the closure of D.
+- Create R2 with the rest of the attributes: R2 = {A, C, D, E}, and also include the reference key D.
+- Determine whether R1 and R2 are in BCNF.
+- R1 is in BCNF because it is the closure of D.
+- Find the closure of CE -> A, CE+ = {A, C, E}, R2(A, C, D, E), which violate the BCNF because CE+ != CE and CE+ != all the attributes in R2, , so we know that CE is not a Superkey.
+- Divide R2 to R3 and R4.
+- R3 is the closure of CE, R3 = {A, C, E}
+- R4 is the rest of the attributes include CE. R4 = {C, D, E}
+- R3 is BCNF because it is the closure of CE.
+- R4 is BCNF because D+ = D and CE+ = CE.
+- The final schema would be R1 = {D, B}, R3 = {A, C, E}, R4 = {C, D, E}.
+
+/*-----------------------------------------------------------------------------------------*/
+
+b. (10 points) S(A,B,C,D,E) with functional dependencies A → E, BC → A, DE → B.
+
+- Check the functional Dependency of S(A, B, C, D, E).
+- Looking at A -> E, and find the closure of A: A+ = {A, E}, A+ != A and A+ != all the attributes in S, which violate BCNF rules, so we know that A is not a Superkey.
+- Decomposing S into S1 and S2, where A is the the attributes to connect S1 and S2.
+- Create S1 with A and E: S1 = {A, E}, which is the closure of A.
+- Create S2 with the rest of the attributes: S2 = {A, B, C, D}, and also include the reference key A.
+- Determine whether S1 and S2 are in BCNF.
+- S1 is in BCNF because it is the closure of A.
+- Find the closure of BC -> A, BC+ = {A, B, C}, S2(A, B, C, D), which violate the BCNF because BC+ != BC and BC+ != all the attributes in S2, , so we know that BC is not a Superkey.
+- Divide S2 to S3 and S4.
+- S3 is the closure of BC, S3 = {A, B, C}
+- S4 is the rest of the attributes include BC. S4 = {B, C, D}
+- S3 is BCNF because it is the closure of BC.
+- S4 is BCNF because D+ = D and BC+ = BC.
+- The final schema would be S1 = {A, E}, S3 = {A, B, C}, S4 = {B, C, D}.
+
+/*-----------------------------------------------------------------------------------------*/
+
+c. All subsets of {A,B,C,D} are closed.
+
+Because {A, B, C, D} are closed, it means that every functional dependencies are trivial dependencies, which each atrributes can only determine thwmselves. Also, every attributes would not determine each other. Because all the subsets are closed, the functional dependencies can be thought of as an empty set {}. So we know that non of the attributes would shows the relationship of others.
+
+/*-----------------------------------------------------------------------------------------*/
+
+d. The only closed subsets of {A,B,C,D} are {} and {A,B,C,D}.
+
+With only the null set and the entire set {A,B,C,D} serving as closed subsets, it follows that all attributes can determine each other. Consequently, we encounter a situation where the presence of the entire attribute set {A,B,C,D} is related to any individual attribute. For example, A -> B, B -> C, C -> D -> A, all the attributes determine each other. Therefore, all the subsets would not be themsoelves, which means that every subsets except {} and {A, B, C, D} are not closed.
+
+/*-----------------------------------------------------------------------------------------*/
+
+e. The only closed subsets of {A,B,C,D} are {}, {B,C}, and {A,B,C,D}.
+
+Based on the description, we know that the only closed subsets of {A, B, C, D} are {}, {B, C}, and {A, B, C, D}. So, {B,C} is a subset thats determine themselves, so we must include B -> C and C -> B. Thus, we know that A and D may determine on other subsets. For example, B -> C, C -> B, A -> BCD, D -> ABC, which make {B, C} closed, and other subsets not closed.
